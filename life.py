@@ -1,4 +1,6 @@
 import random
+import copy
+
 
 class State():
     ''' Gives you the state of the grid '''
@@ -89,6 +91,24 @@ class State():
             else:
                 return value
 
+    def next(self):
+        ''' Calculating a stage in the game of life '''
+
+        new_step = copy.deepcopy(self)
+
+        for col in range(self.size_y):
+            for row in range(self.size_x):
+                neighbours_number = self.count_neighbours(col, row)
+
+                if neighbours_number == 3:
+                    new_step.grid[row][col] = "*"
+                elif neighbours_number < 2 or neighbours_number > 3:
+                    new_step.grid[row][col] = " "
+                else:
+                    new_step.grid[row][col] = self.grid[row][col]
+
+        return new_step
+
     def __repr__(self):
 
         top = "_" * (self.size_x +2)
@@ -103,15 +123,7 @@ class State():
         return str(top) + "\n" + str(body) + str(down)
 
 
-s = State()
-print(s)
-
-
-print(s.count_neighbours(0, 0))
-print(s.count_neighbours(1, 0))
-print(s.count_neighbours(0, 1))
-print(s.count_neighbours(2, 1))
-print(s.count_neighbours(2, 2))
-print(s.count_neighbours(0, 4))
-print(s.count_neighbours(9, 1)) 
-print(s.count_neighbours(2, 9))
+s = State(size_x=6, size_y=6)
+for _ in range(5):
+    print(s)
+    s = s.next()
