@@ -1,5 +1,8 @@
 import random
 import copy
+import colorama
+import time
+import sys
 
 
 class State():
@@ -98,14 +101,14 @@ class State():
 
         for col in range(self.size_y):
             for row in range(self.size_x):
-                neighbours_number = self.count_neighbours(col, row)
+                neighbours_number = self.count_neighbours(row, col)
 
                 if neighbours_number == 3:
-                    new_step.grid[row][col] = "*"
+                    new_step.grid[col][row] = "*"
                 elif neighbours_number < 2 or neighbours_number > 3:
-                    new_step.grid[row][col] = " "
+                    new_step.grid[col][row] = " "
                 else:
-                    new_step.grid[row][col] = self.grid[row][col]
+                    new_step.grid[col][row] = self.grid[col][row]
 
         return new_step
 
@@ -123,7 +126,31 @@ class State():
         return str(top) + "\n" + str(body) + str(down)
 
 
-s = State(size_x=6, size_y=6)
-for _ in range(5):
-    print(s)
-    s = s.next()
+
+
+
+if len(sys.argv) == 1:
+    sn = State(size_x = 80 , size_y = 25)
+elif sys.argv[1] == "random":
+    sn = State(size_x = 80, size_y = 25, random_init = True)
+else:
+    print("This parameter is not defined")
+#print(sn)
+
+# Initialize colorama module
+colorama.init()
+# Clear screen
+print(colorama.ansi.clear_screen())
+
+# Initialize infinite loop
+while True:
+    # Initailize cursos fo position(0,0)
+    print(colorama.Cursor.POS(0,0))
+
+    #Compute next life
+    sn = sn.next()
+    # Display grid
+    print(repr(sn))
+    # Remove grid
+    time.sleep(0.05)
+
