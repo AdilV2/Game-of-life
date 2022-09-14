@@ -128,29 +128,29 @@ class State():
 
 
 
+if __name__ == '__main__':
 
-if len(sys.argv) == 1:
-    sn = State(size_x = 80 , size_y = 25)
-elif sys.argv[1] == "random":
-    sn = State(size_x = 80, size_y = 25, random_init = True)
-else:
-    print("This parameter is not defined")
-#print(sn)
+    if len(sys.argv) == 1:
+        sn = State(size_x = 80 , size_y = 25)
+    elif sys.argv[1] == "random":
+        sn = State(size_x = 80, size_y = 25, random_init = True)
+    else:
+        print("This parameter is not defined")
+    #print(sn)
 
-# Initialize colorama module
-colorama.init()
-# Clear screen
-print(colorama.ansi.clear_screen())
+    # Initialize colorama module
+    colorama.init()
+    # Clear screen
+    print(colorama.ansi.clear_screen())
 
-# Initialize infinite loop
-while True:
-    # Initailize cursos fo position(0,0)
-    print(colorama.Cursor.POS(0,0))
+    # Initialize infinite loop
+    while True:
+        # Initailize cursos fo position(0,0)
+        print(colorama.Cursor.POS(0,0))
 
-    #Compute next life
-    sn = sn.next()
-    # Display grid
-    print(repr(sn))
-    # Remove grid
-    time.sleep(0.05)
-
+        #Compute next life
+        sn = sn.next()
+        # Display grid
+        print(repr(sn))
+        # Remove grid
+        time.sleep(0.05)
